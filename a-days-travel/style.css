@@ -63,6 +63,7 @@ body {
 
 p {
   font-size: 1.15rem;
+  text-wrap: balance;
 }
 
 h1 {
