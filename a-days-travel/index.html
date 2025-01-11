@@ -1,11 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wilds of Pavv Weather Generator &bull; SFDM Tools</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Day's Travel Generator &bull; SFDM</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>A Day's Travel</h1>
+      <p>
+        An AI-powered generator for narrative boxed text at the start of a day's
+        journey.
+      </p>
+      <small
+        >Created by
+        <a href="https://github.com/DaJoker29">Dewitt Buckingham</a> of
+        <a href="https://www.patreon.com/sunflowerdm">SunflowerDM</a></small
+      >
+    </header>
+    <aside>
+      <form action="">
+        <fieldset>
+          <legend>Travel Options</legend>
+
+          <label for="season-select">Choose Season</label>
+          <div class="select-wrapper">
+            <select name="season" id="season-select">
+              <option value="" disabled selected>--Choose season--</option>
+              <option value="early-winter">Early Winter</option>
+              <option value="midwinter">Midwinter</option>
+              <option value="late-winter">Late Winter</option>
+              <option value="early-spring">Early Spring</option>
+              <option value="midspring">Midspring</option>
+              <option value="late-spring">Late Spring</option>
+              <option value="early-summer">Early Summer</option>
+              <option value="midsummer">Midsummer</option>
+              <option value="late-summer">Late Summer</option>
+              <option value="early-autumn">Early Autumn</option>
+              <option value="midautumn">Midautumn</option>
+              <option value="late-autumn">Late Autumn</option>
+            </select>
+          </div>
+
+          <br />
+
+          <label for="region-select">Choose Region</label>
+          <div class="select-wrapper">
+            <select name="region" id="region-select">
+              <option value="" disabled selected>--Choose region--</option>
+              <option value="tricksters-green">
+                Trickster's Green (Jungle)
+              </option>
+              <option value="pale-moon-woods">Pale Moon Woods (Forest)</option>
+              <option value="twindragon-spine">
+                Twindragon Spine (Mountain)
+              </option>
+              <option value="deadlands">The Deadlands (Swamp)</option>
+              <option value="grimtooth-bay">Grimtooth Bay (Coast)</option>
+              <option value="angelfearne">Angelfearne (Forest)</option>
+              <option value="pilgrims-landing">
+                Pilgrim's Landing (Arctic)
+              </option>
+              <option value="white-sand-wilds">
+                White Sand Wilds (Desert)
+              </option>
+              <option value="birdcage">The Birdcage (Mountain)</option>
+            </select>
+          </div>
+
+          <br />
+
+          <label for="combat-flag-input"
+            >Include Combat Encounter?
+            <input
+              type="checkbox"
+              name="combat-flag"
+              id="combat-flag-input"
+              checked
+          /></label>
+
+          <label for="noncombat-flag-input"
+            >Include Non-Combat Encounter?
+            <input
+              type="checkbox"
+              name="noncombat-flag"
+              id="noncombat-flag-input"
+              checked
+              required
+            />
+          </label>
+
+          <br />
+          <div class="form-submission">
+            <input type="submit" value="Generate" />
+            <input type="reset" value="Reset" />
+          </div>
+        </fieldset>
+      </form>
+    </aside>
+    <main>
+      <fieldset>
+        <legend>Today's Narrative</legend>
+
+        <h3>Weather</h3>
+        <output name="weatherWind">Heavy wind</output>
+        <output name="weatherTemp">Warmer than normal</output>
+        <output name="weatherOverview">Light Rain</output>
+        <output name="weatherBanner"
+          ><img src="banner-light-rain.png" alt="Light rain"
+        /></output>
+
+        <h3>Travel & Encounters</h3>
+        <output name="travelConditions">
+          <strong>Travel Conditions.</strong> The humid jungle air clings to
+          your skin, heavy and warm despite the season. Light rain patters
+          against the canopy above, creating a rhythmic drumming that mingles
+          with the chirps and cries of unseen creatures. A gentle wind
+          occasionally stirs the broad leaves, offering fleeting relief from the
+          oppressive heat.
+        </output>
+        <output name="combatEncounter"
+          ><strong>Combat Encounter.</strong> As you push through a cluster of
+          hanging vines, the underbrush suddenly erupts with motion. A pack of
+          jungle stalkers—sleek, panther-like beasts with luminous eyes and
+          camouflaging fur—charges toward you, their snarls echoing through the
+          trees as they defend their territory.</output
+        >
+        <output name="nonCombatEncounter">
+          <div>
+            <strong>Social Encounter.</strong> A solitary jungle trader, draped
+            in brightly dyed fabrics and laden with wares, blocks your path.
+            They offer rare local goods but demand a story, song, or secret in
+            exchange for their wares.
+          </div>
+
+          <div>
+            <strong>Skill Challenge.</strong> A narrow, swaying vine bridge
+            stretches across a mist-shrouded gorge, its damp, rain-slicked ropes
+            creaking ominously with each gust of wind.
+          </div>
+        </output>
+      </fieldset>
+    </main>
+    <footer>
+      <a href="https://github.com/DaJoker29/sfdm-tools">source code</a>
+    </footer>
+  </body>
 </html>
