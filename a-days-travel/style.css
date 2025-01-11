@@ -64,6 +64,10 @@ h1 {
   font-size: clamp(2rem, 1.143rem + 2.286vw, 3.2rem);
 }
 
+h3 {
+  margin-top: 1.5rem;
+}
+
 header {
   background-color: var(--green-300);
   border-bottom: 2px dashed;
@@ -135,6 +139,34 @@ input[type="submit"] {
     background-color: var(--yellow-300);
     color: var(--yellow-600);
   }
+}
+
+output {
+  display: block;
+}
+
+output:not(:last-of-type, :has(img)) {
+  border-bottom: 1px dashed;
+}
+
+output,
+output > div {
+  padding-block: 0.5rem;
+}
+
+footer {
+  font-size: 0.625rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: inline-block;
+}
+
+label + label:has([type="checkbox"]) {
+  border-top: 1px dashed;
+  margin-bottom: 2rem;
 }
 
 .form-submission {
