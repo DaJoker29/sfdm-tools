@@ -1,4 +1,4 @@
-export default {
+const SEASONS = {
   "early-winter": {
     label: "Early Winter",
     chanceOfWeather: [
@@ -132,3 +132,25 @@ export default {
     ],
   },
 };
+
+async function validateSeasonsData() {
+  console.log(`== Validating seasonal weather probability ==`);
+
+  try {
+    for (const [key, value] of Object.entries(SEASONS)) {
+      const sum = value.chanceOfWeather.reduce(
+        (acc, curr) => acc + curr.weight,
+        0
+      );
+
+      if (sum !== 100)
+        throw new Error(
+          `${key} weight sum equals ${sum}. This value should equal 100!`
+        );
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export { validateSeasonsData, SEASONS };

@@ -5,11 +5,11 @@ import cors from "cors";
 import mongoose from "mongoose";
 import helmet from "helmet";
 import passport from "passport";
-import seasons from "./public/seasons-data.js";
 import { Strategy } from "passport-google-oauth20";
 
 import { userSchema, journeySchema } from "./schemas.js";
 import { generate } from "./travel.js";
+import { validateSeasonsData } from "./data/seasons.js";
 
 const app = express();
 
@@ -97,7 +97,7 @@ app.use((err, req, res, next) => {
 
 // Start server
 app.listen(process.env.PORT, () => {
-  validateJSONContent();
+  validateSeasonsData();
   console.log(`App listening on port ${process.env.PORT}`);
 });
 
@@ -113,24 +113,4 @@ async function verifyUser(accessToken, refreshToken, profile, done) {
 
   const user = await User.findOneAndUpdate(filter, update, options);
   return done(null, user);
-}
-
-async function validateJSONContent() {
-  console.log(`== Validating local content ==`);
-
-  try {
-    for (const [key, value] of Object.entries(seasons)) {
-      const sum = value.chanceOfWeather.reduce(
-        (acc, curr) => acc + curr.weight,
-        0
-      );
-
-      if (sum !== 100)
-        throw new Error(
-          `${key} weight sum equals ${sum}. This value should equal 100!`
-        );
-    }
-  } catch (e) {
-    console.error(e);
-  }
 }
