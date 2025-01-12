@@ -6,28 +6,11 @@ import helmet from "helmet";
 import passport from "passport";
 import { Strategy } from "passport-google-oauth20";
 
+import { userSchema, journeySchema } from "./schemas.js";
+
 const app = express();
 
 connectDB().catch((err) => console.log(err));
-
-// Database Schemas
-const userSchema = new mongoose.Schema({
-  googleID: String,
-});
-
-const journeySchema = new mongoose.Schema({
-  owner: String,
-  season: String,
-  region: String,
-  combatFlag: Boolean,
-  nonCombatFlag: Boolean,
-  weatherWind: String,
-  weatherTemp: String,
-  weatherOverview: String,
-  travelConditions: String,
-  combatEncounter: String,
-  nonCombatEncounter: String,
-});
 
 const User = mongoose.model("User", userSchema);
 const Journey = mongoose.model("Journey", journeySchema);
@@ -61,19 +44,12 @@ passport.use(
         process.env.GOOGLE_CALLBACK_URL ||
         "http://localhost:3000/auth/google/callback",
     },
-    async function (accessToken, refreshToken, profile, done) {
-      const filter = { googleID: profile.id };
-      const update = {};
-      const options = { new: true, upsert: true };
-
-      const user = await User.findOneAndUpdate(filter, update, options);
-      return done(null, user);
-    }
+    verifyUser
   )
 );
 
 passport.serializeUser((user, done) => {
-  console.log(`Serializing User. ID: ${user.googleID}`);
+  console.log(`Serializing User: ${user.googleID}`);
   done(null, user.googleID);
 });
 
@@ -83,10 +59,11 @@ passport.deserializeUser(async (id, done) => {
   const options = { new: true, upsert: true };
 
   const user = await User.findOneAndUpdate(filter, update, options);
-  console.log(`Deserializing user. ID: ${user.googleID}`);
+  console.log(`Deserializing user: ${user.googleID}`);
   done(null, user);
 });
 
+// Authentication Routes
 app.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
@@ -94,13 +71,13 @@ app.get(
 
 app.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
+  passport.authenticate("google"),
   (req, res) => {
     res.redirect("/");
   }
 );
 
-// Error Handling
+// Error Handling Routes
 app.use((req, res, next) => {
   res.status(404).send("Can't find that!");
 });
@@ -118,4 +95,13 @@ app.listen(process.env.PORT, () => {
 async function connectDB() {
   await mongoose.connect(process.env.DB);
   console.log(`Connected to database: ${process.env.DB}`);
+}
+
+async function verifyUser(accessToken, refreshToken, profile, done) {
+  const filter = { googleID: profile.id };
+  const update = {};
+  const options = { new: true, upsert: true };
+
+  const user = await User.findOneAndUpdate(filter, update, options);
+  return done(null, user);
 }
