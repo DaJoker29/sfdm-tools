@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
-  <body>
+  <body class="no-js is-loading">
     <header>
       <h1>A Day's Travel</h1>
       <p>
@@ -21,13 +21,13 @@
       >
     </header>
     <aside>
-      <form action="">
+      <form id="travelOptions">
         <fieldset>
           <legend>Travel Options</legend>
 
           <label for="season-select">Choose Season</label>
           <div class="select-wrapper">
-            <select name="season" id="season-select">
+            <select name="season" id="season-select" required>
               <option value="" disabled selected>--Choose season--</option>
               <option value="early-winter">Early Winter</option>
               <option value="midwinter">Midwinter</option>
@@ -48,7 +48,7 @@
 
           <label for="region-select">Choose Region</label>
           <div class="select-wrapper">
-            <select name="region" id="region-select">
+            <select name="region" id="region-select" required>
               <option value="" disabled selected>--Choose region--</option>
               <option value="tricksters-green">
                 Trickster's Green (Jungle)
@@ -148,4 +148,6 @@
       <a href="https://github.com/DaJoker29/sfdm-tools">source code</a>
     </footer>
   </body>
+
+  <script src="js/script.js" type="module"></script>
 </html>
