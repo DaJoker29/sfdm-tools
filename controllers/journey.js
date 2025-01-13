@@ -1,4 +1,4 @@
-const generate = async function (req, res, next) {
+const newJourney = async function (req, res, next) {
   try {
     console.log(req.body);
     const { season, region, combatFlag, nonCombatFlag } = req.body;
@@ -8,4 +8,4 @@ const generate = async function (req, res, next) {
   }
 };
 
-export { generate };
+export { newJourney };

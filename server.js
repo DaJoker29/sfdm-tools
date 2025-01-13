@@ -4,12 +4,13 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import helmet from "helmet";
-import passport from "passport";
-import { Strategy } from "passport-google-oauth20";
 
+import passport from "./passport.js";
 import { userSchema, journeySchema } from "./schemas.js";
-import { generate } from "./travel.js";
+import { generate } from "./controllers/journey.js";
 import { validateSeasonsData } from "./data/seasons.js";
+import authRoutes from "./routes/authRoutes.js";
+import apiRoutes from "./routes/apiRoutes.js";
 
 const app = express();
 
@@ -19,71 +20,26 @@ const User = mongoose.model("User", userSchema);
 const Journey = mongoose.model("Journey", journeySchema);
 
 // Middleware
+const sessionOptions = {
+  secret: process.env.SESSION_SECRET || "secretkey123",
+  resave: false,
+  saveUninitialized: true,
+};
+
+// Reduce fingerprinting
+app.disable("x-powered-by");
+
 app.use(cors());
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
-
-// Reduce fingerprinting
-app.disable("x-powered-by");
-
-// Authentication
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || "secretkey123",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
-
+app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(
-  new Strategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL:
-        process.env.GOOGLE_CALLBACK_URL ||
-        "http://localhost:3000/auth/google/callback",
-    },
-    verifyUser
-  )
-);
-
-passport.serializeUser((user, done) => {
-  console.log(`Serializing User: ${user.googleID}`);
-  done(null, user.googleID);
-});
-
-passport.deserializeUser(async (id, done) => {
-  const filter = { googleID: id };
-  const update = {};
-  const options = { new: true, upsert: true };
-
-  const user = await User.findOneAndUpdate(filter, update, options);
-  console.log(`Deserializing user: ${user.googleID}`);
-  done(null, user);
-});
-
-// Authentication Routes
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
-
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google"),
-  (req, res) => {
-    res.redirect("/");
-  }
-);
-
-// API Routes
-app.post("/travel", generate);
+app.use("/auth", authRoutes);
+app.use("/api", apiRoutes);
 
 // Error Handling Routes
 app.use((req, res, next) => {
@@ -104,13 +60,4 @@ app.listen(process.env.PORT, () => {
 async function connectDB() {
   await mongoose.connect(process.env.DB);
   console.log(`Connected to database: ${process.env.DB}`);
-}
-
-async function verifyUser(accessToken, refreshToken, profile, done) {
-  const filter = { googleID: profile.id };
-  const update = {};
-  const options = { new: true, upsert: true };
-
-  const user = await User.findOneAndUpdate(filter, update, options);
-  return done(null, user);
 }

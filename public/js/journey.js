@@ -1,4 +1,4 @@
-const endpoint = "/travel";
+const endpoint = "/journey";
 const form = document.querySelector("#travelOptions");
 
 const journey = () => {
