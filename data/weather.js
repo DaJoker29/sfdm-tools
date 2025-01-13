@@ -23,9 +23,15 @@ const WEATHER = {
   ],
 };
 
-const WIND = ["No wind", "Light wind", "Heavy wind"];
+const WIND = ["No wind", "Light wind", "Heavy wind", "Squall"];
 
-const TEMP = ["Normal temperature", "Unusually cold", "Unusually warm"];
+const TEMP = [
+  "Normal temperature",
+  "Unusually cold",
+  "Unusually warm",
+  "Freezing Cold",
+  "Scorching Heat",
+];
 
 const BANNER = {
   "Clear/Cloudy": "clear-cloudy.png",
