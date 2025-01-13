@@ -154,6 +154,10 @@ output > div {
   padding-block: 0.5rem;
 }
 
+output:empty {
+  display: none;
+}
+
 footer {
   font-size: 0.625rem;
   text-align: center;

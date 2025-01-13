@@ -1,4 +1,4 @@
-const endpoint = "/journey";
+const endpoint = "/api/journey";
 const form = document.querySelector("#travelOptions");
 
 const journey = () => {
@@ -36,7 +36,16 @@ async function submitListener(e) {
     response.json()
   );
 
-  const promptValues = rollTables(response);
-}
+  console.log(response);
 
-function rollTables(options) {}
+  const windElement = document.querySelector("#wind-output");
+  const tempElement = document.querySelector("#temp-output");
+  const overviewElement = document.querySelector("#overview-output");
+  const bannerElement = document.querySelector("#banner-output > img");
+
+  windElement.textContent = response.weatherWind;
+  tempElement.textContent = response.weatherTemp;
+  overviewElement.textContent = response.weatherOverview;
+  bannerElement.src = `/img/${response.weatherBanner}`;
+  bannerElement.alt = response.weatherOverview;
+}
