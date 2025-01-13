@@ -7,7 +7,6 @@ import helmet from "helmet";
 
 import passport from "./passport.js";
 import { userSchema, journeySchema } from "./schemas.js";
-import { generate } from "./controllers/journey.js";
 import { validateSeasonsData } from "./data/seasons.js";
 import authRoutes from "./routes/authRoutes.js";
 import apiRoutes from "./routes/apiRoutes.js";
