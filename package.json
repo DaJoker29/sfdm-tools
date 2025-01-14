@@ -4,7 +4,8 @@
   "description": "A set of DM tools for 5th edition Dungeons and Dragons",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "dotenvx run -- node server.js"
+    "start": "dotenvx run -- node server.js",
+    "roll-stats": "node ./utils/roll-stats.js"
   },
   "repository": {
     "type": "git",
