@@ -13,14 +13,17 @@ import apiRoutes from "./routes/apiRoutes.js";
 
 const app = express();
 
-connectDB().catch((err) => console.log(err));
+const hostname = process.env.HOST;
+const port = process.env.PORT;
+const secret = process.env.EXPRESS_SECRET;
+const dbUrl = process.env.DB;
 
 const User = mongoose.model("User", userSchema);
 const Journey = mongoose.model("Journey", journeySchema);
 
 // Middleware
 const sessionOptions = {
-  secret: process.env.SESSION_SECRET || "secretkey123",
+  secret,
   resave: false,
   saveUninitialized: true,
 };
@@ -50,13 +53,22 @@ app.use((err, req, res, next) => {
   res.status(500).send("Misadventure has occurred!");
 });
 
-// Start server
-app.listen(process.env.PORT, () => {
+try {
   validateSeasonsData();
-  console.log(`App listening on port ${process.env.PORT}`);
-});
+  connect();
+} catch (err) {
+  console.error(err);
+  process.exit(1);
+}
 
-async function connectDB() {
-  await mongoose.connect(process.env.DB);
-  console.log(`Connected to database: ${process.env.DB}`);
+async function connect() {
+  await mongoose.connect(dbUrl);
+  console.log(`== Connected to database: ${dbUrl} ==`);
+
+  // Start server
+  app.listen(port, () => {
+    console.log(`== Express secret set to ${secret} ==`);
+    console.log(`== Accessible from: http://${hostname}:${port} ==`);
+    console.log(`\nLISTENING...\n`);
+  });
 }
