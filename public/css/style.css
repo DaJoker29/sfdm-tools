@@ -131,6 +131,11 @@ input[type="reset"] {
   cursor: pointer;
 }
 
+aside a {
+  text-align: center;
+  display: block;
+}
+
 input[type="submit"] {
   background-color: var(--green-400);
   color: var(--green-700);
