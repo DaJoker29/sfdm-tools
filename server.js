@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import helmet from "helmet";
+import MongoStore from "connect-mongo";
 
 import passport from "./services/passport.js";
 import { validateSeasonsData } from "./public/data/seasons.js";
@@ -20,6 +21,7 @@ const dbUrl = process.env.DB;
 // Middleware
 const sessionOptions = {
   secret,
+  store: MongoStore.create({ mongoUrl: dbUrl }),
   resave: false,
   saveUninitialized: true,
 };
