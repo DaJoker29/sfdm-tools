@@ -1,0 +1,43 @@
+{
+  "name": "sfdm-tools",
+  "version": "0.0.0",
+  "description": "A set of DM tools for 5th edition Dungeons and Dragons",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "dotenvx run -- node server.js",
+    "roll-stats": "node ./utils/roll-stats.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaJoker29/sfdm-tools.git"
+  },
+  "keywords": [
+    "dnd",
+    "dungeons-and-dragons",
+    "dungeon-master"
+  ],
+  "author": "Dewitt A. Buckingham, III",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DaJoker29/sfdm-tools/issues"
+  },
+  "homepage": "https://github.com/DaJoker29/sfdm-tools#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "eslint": "^9.18.0",
+    "globals": "^15.14.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "@dotenvx/dotenvx": "^1.32.1",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "helmet": "^8.0.0",
+    "mongoose": "^8.9.4",
+    "openai": "^4.78.1",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
+  }
+}
