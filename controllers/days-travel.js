@@ -1,7 +1,7 @@
-import { SEASONS } from "../data/seasons.js";
-import { REGIONS } from "../data/regions.js";
+import { SEASONS } from "../public/data/seasons.js";
+import { REGIONS } from "../public/data/regions.js";
+import weather from "../public/data/weather.js";
 import { submitToGPT } from "../services/gpt.js";
-import weather from "../data/weather.js";
 
 const newNarrative = async function (req, res, next) {
   try {

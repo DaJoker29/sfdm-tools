@@ -6,8 +6,7 @@ import mongoose from "mongoose";
 import helmet from "helmet";
 
 import passport from "./passport.js";
-import { userSchema, journeySchema } from "./schemas.js";
-import { validateSeasonsData } from "./data/seasons.js";
+import { validateSeasonsData } from "./public/data/seasons.js";
 import authRoutes from "./routes/authRoutes.js";
 import apiRoutes from "./routes/apiRoutes.js";
 
@@ -17,9 +16,6 @@ const hostname = process.env.HOST;
 const port = process.env.PORT;
 const secret = process.env.EXPRESS_SECRET;
 const dbUrl = process.env.DB;
-
-const User = mongoose.model("User", userSchema);
-const Journey = mongoose.model("Journey", journeySchema);
 
 // Middleware
 const sessionOptions = {
