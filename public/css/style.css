@@ -69,6 +69,9 @@ h3 {
 }
 
 header {
+  background-image: url("../img/webp/splash.webp");
+  background-size: cover;
+  background-blend-mode: multiply;
   background-color: var(--green-300);
   border-bottom: 2px dashed;
   color: var(--green-700);
