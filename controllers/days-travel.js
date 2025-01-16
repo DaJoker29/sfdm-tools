@@ -1,44 +1,41 @@
 import { SEASONS } from "../data/seasons.js";
+import { REGIONS } from "../data/regions.js";
 import { submitToGPT } from "../services/gpt.js";
 import weather from "../data/weather.js";
 
-const newJourney = async function (req, res, next) {
+const newNarrative = async function (req, res, next) {
   try {
-    console.log(
-      `Request recieved from id: ${
-        Object.prototype.hasOwnProperty.call(req, "user")
-          ? req.user.googleID
-          : "Unauthenticated"
-      }`
-    );
-
-    console.log(req.body);
-    const { season, region, combatFlag, nonCombatFlag } = req.body;
+    const { combatFlag, nonCombatFlag } = req.body;
     const { weatherWind, weatherTemp, weatherOverview, weatherBanner } =
-      calculateWeather(season);
+      calculateWeather(req.body.season);
 
-    const journey = await submitToGPT({
-      season,
-      region,
-      combatFlag,
-      nonCombatFlag,
-      weatherWind,
-      weatherTemp,
-      weatherOverview,
-    });
+    const season = SEASONS[req.body.season].label;
+    const region = REGIONS[req.body.region].label;
+    const biome = REGIONS[req.body.region].biome;
 
-    const { travelConditions, combatEncounter, nonCombatEncounter } =
-      JSON.parse(journey.substring(7, journey.length - 3));
+    const { prompt, travelConditions, combatEncounter, nonCombatEncounter } =
+      await submitToGPT({
+        season,
+        region,
+        biome,
+        combatFlag,
+        nonCombatFlag,
+        weatherWind,
+        weatherTemp,
+        weatherOverview,
+      });
 
     const response = {
       season,
       region,
+      biome,
       combatFlag,
       nonCombatFlag,
       weatherWind,
       weatherTemp,
       weatherOverview,
       weatherBanner,
+      prompt,
       travelConditions,
       combatEncounter,
       nonCombatEncounter,
@@ -51,38 +48,24 @@ const newJourney = async function (req, res, next) {
   }
 };
 
-export { newJourney };
-
 function calculateWeather(season) {
-  console.log(`Season: ${season}`);
-
-  const seasonDetails = SEASONS[season];
-
   const weatherCategory = getWeatherCat(
-    seasonDetails.chanceOfWeather,
+    SEASONS[season].chanceOfWeather,
     Math.random() * 100
   );
 
   const weatherWind = selectRandom(weather.WIND);
-  console.log(`Weather Wind: ${weatherWind}`);
-
   const weatherTemp = selectRandom(weather.TEMP);
-  console.log(`Weather Temp: ${weatherTemp}`);
-
   const weatherOverview = selectRandom(weather.WEATHER[weatherCategory]);
-  console.log(`Weather Overview: ${weatherOverview}`);
-
   const weatherBanner = weather.BANNER[weatherCategory];
-  console.log(`Weather Banner: ${weatherBanner}`);
 
   return { weatherWind, weatherTemp, weatherOverview, weatherBanner };
 }
 
 function getWeatherCat(chanceArr, rand) {
-  console.log(`Determining weather: ${rand}`);
+  // Iterate through the chanceArr and return the weather category using weighted probability
   for (let i = 0; i < chanceArr.length; i++) {
     if (rand < chanceArr[i].weight) {
-      console.log(`Outcome: ${chanceArr[i].weather}`);
       return chanceArr[i].weather;
     }
     rand -= chanceArr[i].weight;
@@ -92,3 +75,5 @@ function getWeatherCat(chanceArr, rand) {
 function selectRandom(array) {
   return array.at(Math.floor(Math.random() * array.length));
 }
+
+export { newNarrative };

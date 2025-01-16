@@ -1,4 +1,4 @@
-const ENDPOINT = "/api/journey";
+const ENDPOINT = "/api/days-travel";
 const travelForm = document.querySelector("#travelOptions");
 
 const addEventListeners = () => {
