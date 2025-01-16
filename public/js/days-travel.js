@@ -8,6 +8,9 @@ const addEventListeners = () => {
 async function onSubmit(event) {
   event.preventDefault();
 
+  document.body.classList.remove("narrative-loaded");
+  document.body.classList.add("narrative-loading");
+
   const formData = new FormData(travelForm);
   const season = formData.get("season");
   const region = formData.get("region");
@@ -32,6 +35,9 @@ async function onSubmit(event) {
   );
 
   updateResults(response);
+
+  document.body.classList.remove("narrative-loading");
+  document.body.classList.add("narrative-loaded");
 }
 
 function updateResults(response) {
@@ -46,7 +52,7 @@ function updateResults(response) {
   windElement.textContent = response.weatherWind;
   tempElement.textContent = response.weatherTemp;
   overviewElement.textContent = response.weatherOverview;
-  bannerElement.src = `/img/${response.weatherBanner}`;
+  bannerElement.src = `/img/webp/${response.weatherBanner}.webp`;
   bannerElement.alt = response.weatherOverview;
 
   drawNarrativeElement({

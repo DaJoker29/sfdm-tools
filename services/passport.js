@@ -1,7 +1,7 @@
 import passport from "passport";
 import mongoose from "mongoose";
 import { Strategy } from "passport-google-oauth20";
-import { userSchema } from "./schemas.js";
+import { userSchema } from "../utils/schemas.js";
 
 const User = mongoose.model("User", userSchema);
 const googleStrategy = new Strategy(
@@ -28,8 +28,6 @@ async function deserialize(googleID, done) {
   done(null, user);
 }
 
-export default passport;
-
 async function verifyUser(accessToken, refreshToken, profile, done) {
   const filter = { googleID: profile.id };
   const update = {};
@@ -38,3 +36,5 @@ async function verifyUser(accessToken, refreshToken, profile, done) {
   const user = await User.findOneAndUpdate(filter, update, options);
   return done(null, user);
 }
+
+export default passport;

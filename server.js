@@ -5,7 +5,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import helmet from "helmet";
 
-import passport from "./passport.js";
+import passport from "./services/passport.js";
 import { validateSeasonsData } from "./public/data/seasons.js";
 import authRoutes from "./routes/authRoutes.js";
 import apiRoutes from "./routes/apiRoutes.js";
