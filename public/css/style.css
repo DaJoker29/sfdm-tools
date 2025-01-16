@@ -212,3 +212,16 @@ a {
     color: var(--red-600);
   }
 }
+
+.loader {
+  display: grid;
+  place-content: center;
+}
+
+.narrative-loaded .loader {
+  display: none;
+}
+
+.narrative-loading fieldset.narrative-display {
+  display: none;
+}
