@@ -1,42 +1,36 @@
-const endpoint = "/api/journey";
-const form = document.querySelector("#travelOptions");
+const ENDPOINT = "/api/journey";
+const travelForm = document.querySelector("#travelOptions");
 
-const journey = () => {
-  form.addEventListener("submit", submitListener);
+const addEventListeners = () => {
+  travelForm.addEventListener("submit", onSubmit);
 };
 
-export default journey;
+async function onSubmit(event) {
+  event.preventDefault();
 
-async function submitListener(e) {
-  e.preventDefault();
-
-  const formData = new FormData(form);
-
+  const formData = new FormData(travelForm);
   const season = formData.get("season");
   const region = formData.get("region");
   const combatFlag = formData.get("combatFlag");
   const nonCombatFlag = formData.get("nonCombatFlag");
 
-  const data = {
-    season,
-    region,
-    combatFlag,
-    nonCombatFlag,
-  };
-
   const options = {
     method: "POST",
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      season,
+      region,
+      combatFlag,
+      nonCombatFlag,
+    }),
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  const response = await fetch(endpoint, options).then((response) =>
+  const response = await fetch(ENDPOINT, options).then((response) =>
     response.json()
   );
 
-  console.log(response);
   updateResults(response);
 }
 
@@ -55,30 +49,30 @@ function updateResults(response) {
   bannerElement.src = `/img/${response.weatherBanner}`;
   bannerElement.alt = response.weatherOverview;
 
-  drawNarrativeElement(
-    travelElement,
-    "Travel Conditions",
-    response.travelConditions
-  );
+  drawNarrativeElement({
+    context: travelElement,
+    label: "Travel Conditions",
+    content: response.travelConditions,
+  });
 
   if (response.combatFlag === "on") {
-    drawNarrativeElement(
-      combatElement,
-      "Combat Encounter",
-      response.combatEncounter
-    );
+    drawNarrativeElement({
+      context: combatElement,
+      label: "Combat Encounter",
+      content: response.combatEncounter,
+    });
   }
 
   if (response.nonCombatFlag === "on") {
-    drawNarrativeElement(
-      nonCombatElement,
-      "Noncombat Encounter",
-      response.nonCombatEncounter
-    );
+    drawNarrativeElement({
+      context: nonCombatElement,
+      label: "Noncombat Encounter",
+      content: response.nonCombatEncounter,
+    });
   }
 }
 
-function drawNarrativeElement(context, label, content) {
+function drawNarrativeElement({ context, label, content }) {
   context.textContent = "";
 
   const strong = document.createElement("strong");
@@ -88,3 +82,5 @@ function drawNarrativeElement(context, label, content) {
   context.append(" ");
   context.append(content);
 }
+
+export { addEventListeners };

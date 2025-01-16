@@ -1,4 +1,4 @@
-import journey from "./journey.js";
+import { addEventListeners } from "./days-travel.js";
 
 document.body.classList.remove("no-js");
 document.body.classList.add("js");
@@ -10,4 +10,4 @@ document.onreadystatechange = () => {
   }
 };
 
-journey();
+addEventListeners();

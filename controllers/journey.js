@@ -11,6 +11,8 @@ const newJourney = async function (req, res, next) {
           : "Unauthenticated"
       }`
     );
+
+    console.log(req.body);
     const { season, region, combatFlag, nonCombatFlag } = req.body;
     const { weatherWind, weatherTemp, weatherOverview, weatherBanner } =
       calculateWeather(season);
