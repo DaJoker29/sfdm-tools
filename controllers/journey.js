@@ -1,4 +1,5 @@
 import { SEASONS } from "../data/seasons.js";
+import { submitToGPT } from "../services/gpt.js";
 import weather from "../data/weather.js";
 
 const newJourney = async function (req, res, next) {
@@ -14,12 +15,34 @@ const newJourney = async function (req, res, next) {
     const { weatherWind, weatherTemp, weatherOverview, weatherBanner } =
       calculateWeather(season);
 
+    const journey = await submitToGPT({
+      season,
+      region,
+      combatFlag,
+      nonCombatFlag,
+      weatherWind,
+      weatherTemp,
+      weatherOverview,
+    });
+
+    const { travelConditions, combatEncounter, nonCombatEncounter } =
+      JSON.parse(journey.substring(7, journey.length - 3));
+
     const response = {
+      season,
+      region,
+      combatFlag,
+      nonCombatFlag,
       weatherWind,
       weatherTemp,
       weatherOverview,
       weatherBanner,
+      travelConditions,
+      combatEncounter,
+      nonCombatEncounter,
     };
+
+    console.log(response);
     res.json(response);
   } catch (err) {
     next(err);
