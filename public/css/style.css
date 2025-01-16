@@ -131,6 +131,11 @@ input[type="reset"] {
   cursor: pointer;
 }
 
+aside a {
+  text-align: center;
+  display: block;
+}
+
 input[type="submit"] {
   background-color: var(--green-400);
   color: var(--green-700);
@@ -152,6 +157,10 @@ output:not(:last-of-type, :has(img)) {
 output,
 output > div {
   padding-block: 0.5rem;
+}
+
+output:empty {
+  display: none;
 }
 
 footer {
