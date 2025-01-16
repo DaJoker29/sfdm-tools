@@ -46,7 +46,7 @@ function updateResults(response) {
   windElement.textContent = response.weatherWind;
   tempElement.textContent = response.weatherTemp;
   overviewElement.textContent = response.weatherOverview;
-  bannerElement.src = `/img/${response.weatherBanner}`;
+  bannerElement.src = `/img/webp/${response.weatherBanner}.webp`;
   bannerElement.alt = response.weatherOverview;
 
   drawNarrativeElement({
