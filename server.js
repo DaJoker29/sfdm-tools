@@ -10,6 +10,7 @@ import passport from "./services/passport.js";
 import { validateSeasonsData } from "./public/data/seasons.js";
 import authRoutes from "./routes/authRoutes.js";
 import apiRoutes from "./routes/apiRoutes.js";
+import { findUser } from "./controllers/auth.js";
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use(passport.session());
 
 app.use("/auth", authRoutes);
 app.use("/api", apiRoutes);
+app.get("/profile", findUser);
 
 // Error Handling Routes
 app.use((req, res, next) => {

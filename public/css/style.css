@@ -229,3 +229,15 @@ a {
 .narrative-loading fieldset.narrative-display {
   display: none;
 }
+
+#authLogout {
+  display: none;
+}
+
+.is-authenticated #authGoogle {
+  display: none;
+}
+
+.is-authenticated #authLogout {
+  display: block;
+}
