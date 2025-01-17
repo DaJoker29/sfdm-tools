@@ -1,5 +1,6 @@
 const ENDPOINT = "/api/days-travel";
 const travelForm = document.querySelector("#travelOptions");
+const travelResults = document.querySelector("#travelResults");
 
 const addEventListeners = () => {
   travelForm.addEventListener("submit", onSubmit);
@@ -38,6 +39,7 @@ async function onSubmit(event) {
 
   document.body.classList.remove("narrative-loading");
   document.body.classList.add("narrative-loaded");
+  travelResults.scrollIntoView({ behavior: "smooth" });
 }
 
 function updateResults(response) {
