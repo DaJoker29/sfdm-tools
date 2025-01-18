@@ -1,19 +1,10 @@
 import express from "express";
-import passport from "../services/passport.js";
+import { logout, Authenticate, OAuthCallback } from "../controllers/auth.js";
 
 const router = express.Router();
 
-router.get(
-  "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
-
-router.get(
-  "/google/callback",
-  passport.authenticate("google", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-  })
-);
+router.get("/google", Authenticate);
+router.get("/google/callback", OAuthCallback);
+router.get("/logout", logout);
 
 export default router;

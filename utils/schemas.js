@@ -4,18 +4,29 @@ const userSchema = new mongoose.Schema({
   googleID: String,
 });
 
-const journeySchema = new mongoose.Schema({
-  owner: String,
-  season: String,
-  region: String,
-  combatFlag: Boolean,
-  nonCombatFlag: Boolean,
-  weatherWind: String,
-  weatherTemp: String,
-  weatherOverview: String,
-  travelConditions: String,
-  combatEncounter: String,
-  nonCombatEncounter: String,
+userSchema.virtual("narratives", {
+  ref: "Narrative",
+  localField: "_id",
+  foreignField: "owner",
 });
 
-export { userSchema, journeySchema };
+const checkboxEnum = ["on", "off"];
+
+const narrativeSchema = new mongoose.Schema({
+  owner: { type: String, ref: "User" },
+  createdAt: { type: Date, default: Date.now },
+  expireAfterSeconds: { type: Number, default: 60 * 60 * 24 * 7 },
+  season: { type: String, required: true },
+  region: { type: String, required: true },
+  biome: { type: String, required: true },
+  combatFlag: { type: String, required: true, enum: checkboxEnum },
+  nonCombatFlag: { type: String, required: true, enum: checkboxEnum },
+  weatherWind: { type: String, required: true },
+  weatherTemp: { type: String, required: true },
+  weatherOverview: { type: String, required: true },
+  travelConditions: { type: String, required: true },
+  combatEncounter: { type: String, required: true },
+  nonCombatEncounter: { type: String, required: true },
+});
+
+export { userSchema, narrativeSchema };

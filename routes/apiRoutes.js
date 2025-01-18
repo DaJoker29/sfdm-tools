@@ -1,11 +1,17 @@
 import express from "express";
-import { newNarrative } from "../controllers/days-travel.js";
+import {
+  newNarrative,
+  saveNarrative,
+  fetchNarratives,
+} from "../controllers/narrative.js";
 import { logCredentials } from "../middleware/auth.js";
 
 const router = express.Router();
 
 router.use(logCredentials);
 
-router.post("/days-travel", newNarrative);
+router.get("/narratives", fetchNarratives);
+router.post("/narrative/new", newNarrative);
+router.post("/narrative/save", saveNarrative);
 
 export default router;

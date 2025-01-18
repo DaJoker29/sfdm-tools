@@ -1,5 +1,6 @@
 import { addEventListeners } from "./days-travel.js";
 import { buildFormFields } from "./forms.js";
+import { checkAuth } from "./auth.js";
 
 document.body.classList.remove("no-js");
 document.body.classList.add("js");
@@ -10,6 +11,7 @@ document.onreadystatechange = () => {
     document.body.classList.remove("is-loading");
 
     buildFormFields();
+    checkAuth();
   }
 };
 

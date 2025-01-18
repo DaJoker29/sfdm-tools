@@ -1,5 +1,8 @@
-const ENDPOINT = "/api/days-travel";
+import { checkAuth } from "./auth.js";
+import { saveNarrative, listNarratives } from "./narrative.js";
+
 const travelForm = document.querySelector("#travelOptions");
+const travelResults = document.querySelector("#travelResults");
 
 const addEventListeners = () => {
   travelForm.addEventListener("submit", onSubmit);
@@ -30,14 +33,30 @@ async function onSubmit(event) {
     },
   };
 
-  const response = await fetch(ENDPOINT, options).then((response) =>
+  travelForm.reset();
+
+  const response = await fetch("/api/narrative/new", options).then((response) =>
     response.json()
   );
 
   updateResults(response);
+  saveResults(response);
 
   document.body.classList.remove("narrative-loading");
   document.body.classList.add("narrative-loaded");
+  travelResults.scrollIntoView({ behavior: "smooth" });
+}
+
+async function saveResults(response) {
+  const owner = await checkAuth();
+
+  if (owner) {
+    try {
+      saveNarrative(owner, response);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }
 
 function updateResults(response) {

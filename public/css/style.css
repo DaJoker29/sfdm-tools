@@ -69,6 +69,10 @@ h3 {
 }
 
 header {
+  background-image: url("../img/webp/splash.webp");
+  background-size: cover;
+  background-blend-mode: multiply;
+  background-position: center;
   background-color: var(--green-300);
   border-bottom: 2px dashed;
   color: var(--green-700);
@@ -224,4 +228,16 @@ a {
 
 .narrative-loading fieldset.narrative-display {
   display: none;
+}
+
+#authLogout {
+  display: none;
+}
+
+.is-authenticated #authGoogle {
+  display: none;
+}
+
+.is-authenticated #authLogout {
+  display: block;
 }

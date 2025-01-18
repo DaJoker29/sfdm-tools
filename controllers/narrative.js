@@ -1,7 +1,32 @@
+import mongoose from "mongoose";
 import { SEASONS } from "../public/data/seasons.js";
 import { REGIONS } from "../public/data/regions.js";
 import { calculateWeather } from "../public/data/weather.js";
 import { submitToGPT } from "../services/gpt.js";
+import { userSchema, narrativeSchema } from "../utils/schemas.js";
+
+const User = mongoose.model("User", userSchema);
+const Narrative = mongoose.model("Narrative", narrativeSchema);
+
+const fetchNarratives = async function (req, res, next) {
+  try {
+    const user = await User.findOne({
+      googleID: req.query.googleID,
+    }).populate("narratives");
+
+    console.log(`Fetching Narratives from User: ${user._id}`);
+    res.json(user.narratives);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const saveNarrative = async function (req, res, next) {
+  console.log(`Saving Narrative. User: ${req.user._id}`);
+  const narrative = await Narrative.create(req.body);
+  res.json(narrative);
+  console.log(`Narrative saved: ${narrative._id}`);
+};
 
 const newNarrative = async function (req, res, next) {
   try {
@@ -48,4 +73,4 @@ const newNarrative = async function (req, res, next) {
   }
 };
 
-export { newNarrative };
+export { newNarrative, saveNarrative, fetchNarratives };

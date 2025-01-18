@@ -4,11 +4,13 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import helmet from "helmet";
+import MongoStore from "connect-mongo";
 
 import passport from "./services/passport.js";
 import { validateSeasonsData } from "./public/data/seasons.js";
 import authRoutes from "./routes/authRoutes.js";
 import apiRoutes from "./routes/apiRoutes.js";
+import { findUser } from "./controllers/auth.js";
 
 const app = express();
 
@@ -20,6 +22,7 @@ const dbUrl = process.env.DB;
 // Middleware
 const sessionOptions = {
   secret,
+  store: MongoStore.create({ mongoUrl: dbUrl }),
   resave: false,
   saveUninitialized: true,
 };
@@ -38,6 +41,7 @@ app.use(passport.session());
 
 app.use("/auth", authRoutes);
 app.use("/api", apiRoutes);
+app.get("/profile", findUser);
 
 // Error Handling Routes
 app.use((req, res, next) => {
