@@ -1,3 +1,5 @@
+import { listNarratives } from "./narrative.js";
+
 const checkAuth = async () => {
   const response = await fetch("/profile").then((response) => response.json());
   console.log(response);
@@ -7,6 +9,13 @@ const checkAuth = async () => {
     return null;
   } else {
     document.body.classList.add("is-authenticated");
+
+    try {
+      listNarratives(response);
+    } catch (err) {
+      console.error(err);
+    }
+
     return response;
   }
 };
