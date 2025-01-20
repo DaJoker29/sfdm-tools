@@ -25,7 +25,7 @@ const listNarratives = async (owner) => {
     (response) => response.json()
   );
 
-  console.log(response);
+  // TODO: #25 Add some visual cue to the user that the narratives are loading
 
   const list = document.querySelector("#narrativesList");
   list.innerHTML = "";
