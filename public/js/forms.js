@@ -1,7 +1,7 @@
 import { SEASONS } from "../data/seasons.js";
 import { REGIONS } from "../data/regions.js";
 
-const buildFormFields = () => {
+const buildFormFields = async () => {
   const seasonSelect = document.getElementById("season-select");
   const regionSelect = document.getElementById("region-select");
 

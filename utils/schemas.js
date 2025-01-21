@@ -15,7 +15,7 @@ const checkboxEnum = ["on", "off"];
 const narrativeSchema = new mongoose.Schema({
   owner: { type: String, ref: "User" },
   createdAt: { type: Date, default: Date.now },
-  expireAfterSeconds: { type: Number, default: 60 * 60 * 24 * 7 },
+  expireAfterSeconds: { type: Number, default: 60 * 60 * 24 },
   season: { type: String, required: true },
   region: { type: String, required: true },
   biome: { type: String, required: true },
