@@ -7,11 +7,11 @@ document.body.classList.add("js");
 
 document.onreadystatechange = () => {
   if (document.readyState === "complete") {
-    document.body.classList.add("is-complete");
-    document.body.classList.remove("is-loading");
-
     buildFormFields();
     checkAuth();
+
+    document.body.classList.add("is-complete");
+    document.body.classList.remove("is-loading");
   }
 };
 

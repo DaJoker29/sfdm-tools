@@ -21,11 +21,6 @@
   --green-700: hsl(82, 39%, 90%);
 }
 
-img {
-  display: block;
-  max-width: 100%;
-}
-
 *,
 *::before,
 *::after {
@@ -55,6 +50,11 @@ body {
   text-rendering: optimizeSpeed;
 }
 
+img {
+  display: block;
+  max-width: 100%;
+}
+
 p {
   font-size: 1.15rem;
   text-wrap: balance;
@@ -77,7 +77,7 @@ header {
   border-bottom: 2px dashed;
   color: var(--green-700);
   display: grid;
-  min-height: 30svb;
+  min-height: 30vh;
   place-content: center;
   text-align: center;
 }
@@ -86,21 +86,10 @@ header > small {
   margin-top: 0.5rem;
 }
 
-aside,
 header,
-main {
+main,
+footer {
   padding: 1rem;
-}
-
-aside,
-main {
-  margin: 5vh auto;
-  max-width: 100ch;
-}
-
-main {
-  border-top: 1px dashed;
-  color: var(--white);
 }
 
 select {
@@ -133,11 +122,6 @@ input[type="reset"] {
   appearance: none;
   font-weight: 700;
   cursor: pointer;
-}
-
-aside a {
-  text-align: center;
-  display: block;
 }
 
 input[type="submit"] {
@@ -205,12 +189,11 @@ label + label:has([type="checkbox"]) {
 }
 
 a {
-  font-weight: 700;
   color: var(--yellow-600);
   text-decoration: underline;
-  text-decoration-style: dotted;
+  text-decoration-style: dashed;
   text-decoration-skip-ink: auto;
-  text-underline-offset: 0.15em;
+  text-underline-offset: 0.2em;
 
   &:hover {
     color: var(--red-600);
@@ -230,14 +213,40 @@ a {
   display: none;
 }
 
-#authLogout {
+.is-authenticated #signin {
   display: none;
 }
 
-.is-authenticated #authGoogle {
+.is-guest #signout {
   display: none;
 }
 
-.is-authenticated #authLogout {
-  display: block;
+.narratives {
+  font-size: smaller;
+}
+
+.container {
+  max-width: min(100% - 3rem, var(--container-max, 100ch));
+  margin-inline: auto;
+  padding-block: 3rem;
+}
+
+.is-authenticated .sidebar-layout {
+  display: grid;
+  grid-template-columns: fit-content(45ch) minmax(min(50vw, 30ch), 1fr);
+  gap: 1rem;
+}
+
+.is-guest .sidebar-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.main-content {
+}
+
+.tooltip {
+  border-bottom: 2px dotted;
+  padding: 0;
+  cursor: help;
 }
