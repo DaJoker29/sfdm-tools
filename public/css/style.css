@@ -206,6 +206,7 @@ a {
 
 .is-complete .page-loader {
   opacity: 0;
+  visibility: hidden;
 }
 
 .loader {
@@ -271,4 +272,5 @@ a {
   z-index: 1000;
   opacity: 1;
   transition: 0.5s ease;
+  visibility: visible;
 }
