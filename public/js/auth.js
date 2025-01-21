@@ -12,7 +12,7 @@ const checkAuth = async () => {
     document.body.classList.remove("is-guest");
 
     try {
-      listNarratives(response);
+      await listNarratives(response);
     } catch (err) {
       console.error(err);
     }

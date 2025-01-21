@@ -200,6 +200,14 @@ a {
   }
 }
 
+.is-loading .loaded-content {
+  display: none;
+}
+
+.is-complete .page-loader {
+  opacity: 0;
+}
+
 .loader {
   display: grid;
   place-content: center;
@@ -231,18 +239,16 @@ a {
   padding-block: 3rem;
 }
 
-.is-authenticated .sidebar-layout {
+.sidebar-layout {
   display: grid;
-  grid-template-columns: fit-content(45ch) minmax(min(50vw, 30ch), 1fr);
+  grid-template-columns: 1fr;
   gap: 1rem;
 }
 
-.is-guest .sidebar-layout {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-.main-content {
+@media (min-width: 600px) {
+  .is-authenticated .sidebar-layout {
+    grid-template-columns: fit-content(45ch) minmax(min(50vw, 30ch), 1fr);
+  }
 }
 
 .tooltip {
@@ -254,4 +260,15 @@ a {
 .logo {
   max-width: min(100%, 10rem);
   margin: 2rem auto;
+}
+
+.page-loader {
+  display: grid;
+  background-color: var(--black);
+  place-content: center;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  opacity: 1;
+  transition: 0.5s ease;
 }
