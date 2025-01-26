@@ -5,6 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "dotenvx run -- node server.js",
+    "build": "esbuild",
     "roll-stats": "node ./utils/roll-stats.js"
   },
   "repository": {
@@ -33,6 +34,7 @@
     "body-parser": "^1.20.3",
     "connect-mongo": "^5.1.0",
     "cors": "^2.8.5",
+    "esbuild": "^0.24.2",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
     "helmet": "^8.0.0",

@@ -274,3 +274,7 @@ a {
   transition: 0.5s ease;
   visibility: visible;
 }
+
+.page-loader svg {
+  margin-inline: auto;
+}
