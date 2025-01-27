@@ -4,9 +4,11 @@
   "description": "A set of DM tools for 5th edition Dungeons and Dragons",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build:dev && npm run server:dev",
+    "start": "npm run build:prod && npm run server",
+    "dev": "npm run build:dev && npm run server",
     "build:dev": "node ./scripts/build-dev.mjs",
-    "server:dev": "dotenvx run -- node server.js",
+    "build:prod": "node ./scripts/build-prod.mjs",
+    "server": "dotenvx run -- node server.js",
     "roll-stats": "node ./utils/roll-stats.js"
   },
   "repository": {
