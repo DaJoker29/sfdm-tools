@@ -1,5 +1,5 @@
 import { SEASONS } from "./seasons.js";
-import { selectRandom } from "../../utils/index.js";
+import { selectRandom } from "../utils/index.js";
 
 const WEATHER = {
   "Clear/Cloudy": [

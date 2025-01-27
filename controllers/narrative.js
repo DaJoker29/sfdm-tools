@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { SEASONS } from "../public/data/seasons.js";
-import { REGIONS } from "../public/data/regions.js";
-import { calculateWeather } from "../public/data/weather.js";
+import { SEASONS } from "../data/seasons.js";
+import { REGIONS } from "../data/regions.js";
+import { calculateWeather } from "../data/weather.js";
 import { submitToGPT } from "../services/gpt.js";
 import { userSchema, narrativeSchema } from "../utils/schemas.js";
 

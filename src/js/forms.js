@@ -1,5 +1,5 @@
-import { SEASONS } from "../data/seasons.js";
-import { REGIONS } from "../data/regions.js";
+import { SEASONS } from "../../data/seasons.js";
+import { REGIONS } from "../../data/regions.js";
 
 const buildFormFields = async () => {
   const seasonSelect = document.getElementById("season-select");

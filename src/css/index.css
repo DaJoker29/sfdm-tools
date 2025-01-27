@@ -69,7 +69,7 @@ h3 {
 }
 
 header {
-  background-image: url("../img/webp/splash.webp");
+  background-image: url("../../static/img/webp/splash.webp");
   background-size: cover;
   background-blend-mode: multiply;
   background-position: center;
@@ -273,4 +273,8 @@ a {
   opacity: 1;
   transition: 0.5s ease;
   visibility: visible;
+}
+
+.page-loader svg {
+  margin-inline: auto;
 }

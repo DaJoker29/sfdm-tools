@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>A Day's Travel • SunflowerDM</title>
+    <%- include('partials/meta') %> <%- include('partials/links') %>
+  </head>
+
+  <body class="no-js is-loading is-guest narrative-loaded">
+    <div class="loaded-content">
+      <header class="main-header">
+        <h1>A Day's Travel</h1>
+        <p>Generate D&D travel encounters quickly and easily.</p>
+        <small
+          >Created by
+          <a
+            href="https://github.com/DaJoker29"
+            target="_blank"
+            rel="noreferrer"
+            >Dewitt Buckingham</a
+          >
+          of
+          <a
+            href="https://www.patreon.com/sunflowerdm"
+            target="_blank"
+            rel="noreferrer"
+            >SunflowerDM</a
+          ></small
+        >
+        <br />
+        <img src="/img/webp/logo.webp" alt="SunflowerDM Logo" class="logo" />
+      </header>
+      <main>
+        <aside class="instructions-container container">
+          <div class="instructions">
+            <p>
+              <strong>INSTRUCTIONS:</strong> Choose a season and region to
+              generate a travel narrative for your players. Optionally include
+              combat and non-combat encounters.
+              <span
+                class="tooltip"
+                title="Sign in to save and retrieve responses for up to 24 hours."
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M20 2H4c-.53 0-1.04.21-1.41.59C2.21 2.96 2 3.47 2 4v12c0 .53.21 1.04.59 1.41c.37.38.88.59 1.41.59h4l4 4l4-4h4c.53 0 1.04-.21 1.41-.59S22 16.53 22 16V4c0-.53-.21-1.04-.59-1.41C21.04 2.21 20.53 2 20 2m-9.95 4.04c.54-.36 1.25-.54 2.14-.54c.94 0 1.69.21 2.23.62q.81.63.81 1.68c0 .44-.15.83-.44 1.2c-.29.36-.67.64-1.13.85c-.26.15-.43.3-.52.47c-.09.18-.14.4-.14.68h-2c0-.5.1-.84.29-1.08c.21-.24.55-.52 1.07-.84c.26-.14.47-.32.64-.54c.14-.21.22-.46.22-.74c0-.3-.09-.52-.27-.69c-.18-.18-.45-.26-.76-.26c-.27 0-.49.07-.69.21c-.16.14-.26.35-.26.63H9.27c-.05-.69.23-1.29.78-1.65M11 14v-2h2v2Z"
+                  />
+                </svg>
+              </span>
+            </p>
+          </div>
+          <br />
+          <div class="auth-google">
+            <a id="signin" href="/auth/google">
+              <img src="/img/svg/signin.svg" alt="Sign in with Google" />
+            </a>
+            <a id="signout" href="/auth/logout">
+              <img src="/img/svg/signout.svg" alt="Sign out" />
+            </a>
+          </div>
+        </aside>
+        <div class="container">
+          <div class="sidebar-layout">
+            <aside id="narratives" class="narratives"></aside>
+            <section id="main-content" class="main-content">
+              <aside>
+                <form id="travelOptions">
+                  <fieldset>
+                    <legend>Travel Options</legend>
+
+                    <label for="season-select">Choose Season</label>
+                    <div class="select-wrapper">
+                      <select name="season" id="season-select" required>
+                        <option value="" disabled selected>
+                          --Choose season--
+                        </option>
+                      </select>
+                    </div>
+
+                    <br />
+
+                    <label for="region-select">Choose Region</label>
+                    <div class="select-wrapper">
+                      <select name="region" id="region-select" required>
+                        <option value="" disabled selected>
+                          --Choose region--
+                        </option>
+                      </select>
+                    </div>
+
+                    <br />
+
+                    <label for="combat-flag-input"
+                      >Include Combat Encounter?
+                      <input
+                        type="checkbox"
+                        name="combatFlag"
+                        id="combat-flag-input"
+                        checked
+                    /></label>
+
+                    <label for="noncombat-flag-input"
+                      >Include Non-Combat Encounter?
+                      <input
+                        type="checkbox"
+                        name="nonCombatFlag"
+                        id="noncombat-flag-input"
+                        checked
+                      />
+                    </label>
+
+                    <br />
+                    <div class="form-submission">
+                      <input type="submit" value="Generate" />
+                      <input type="reset" value="Reset" />
+                    </div>
+                  </fieldset>
+                </form>
+              </aside>
+              <div class="loader">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="xMidYMid"
+                  style="
+                    shape-rendering: auto;
+                    display: block;
+                    background: transparent;
+                  "
+                  width="200"
+                  height="200"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <g>
+                    <g transform="translate(50 50)">
+                      <g>
+                        <animateTransform
+                          repeatCount="indefinite"
+                          dur="0.2s"
+                          keyTimes="0;1"
+                          values="0;45"
+                          type="rotate"
+                          attributeName="transform"
+                        ></animateTransform>
+                        <path
+                          fill="#e15b64"
+                          d="M29.491524206117255 -5.5 L37.491524206117255 -5.5 L37.491524206117255 5.5 L29.491524206117255 5.5 A30 30 0 0 1 24.742744050198738 16.964569457146712 L24.742744050198738 16.964569457146712 L30.399598299691117 22.621423706639092 L22.621423706639096 30.399598299691114 L16.964569457146716 24.742744050198734 A30 30 0 0 1 5.5 29.491524206117255 L5.5 29.491524206117255 L5.5 37.491524206117255 L-5.499999999999997 37.491524206117255 L-5.499999999999997 29.491524206117255 A30 30 0 0 1 -16.964569457146705 24.742744050198738 L-16.964569457146705 24.742744050198738 L-22.621423706639085 30.399598299691117 L-30.399598299691117 22.621423706639092 L-24.742744050198738 16.964569457146712 A30 30 0 0 1 -29.491524206117255 5.500000000000009 L-29.491524206117255 5.500000000000009 L-37.491524206117255 5.50000000000001 L-37.491524206117255 -5.500000000000001 L-29.491524206117255 -5.500000000000002 A30 30 0 0 1 -24.742744050198738 -16.964569457146705 L-24.742744050198738 -16.964569457146705 L-30.399598299691117 -22.621423706639085 L-22.621423706639092 -30.399598299691117 L-16.964569457146712 -24.742744050198738 A30 30 0 0 1 -5.500000000000011 -29.491524206117255 L-5.500000000000011 -29.491524206117255 L-5.500000000000012 -37.491524206117255 L5.499999999999998 -37.491524206117255 L5.5 -29.491524206117255 A30 30 0 0 1 16.964569457146702 -24.74274405019874 L16.964569457146702 -24.74274405019874 L22.62142370663908 -30.39959829969112 L30.399598299691117 -22.6214237066391 L24.742744050198738 -16.964569457146716 A30 30 0 0 1 29.491524206117255 -5.500000000000013 M0 -20A20 20 0 1 0 0 20 A20 20 0 1 0 0 -20"
+                        ></path>
+                      </g>
+                    </g>
+                    <g></g>
+                  </g>
+                  <!-- [ldio] generated by https://loading.io -->
+                </svg>
+              </div>
+              <fieldset id="travelResults" class="narrative-display">
+                <legend>Today's Narrative</legend>
+
+                <h3>Weather</h3>
+                <output id="wind-output" name="weatherWind">—</output>
+                <output id="temp-output" name="weatherTemp">—</output>
+                <output id="overview-output" name="weatherOverview">—</output>
+                <output id="banner-output" name="weatherBanner"
+                  ><img src="img/webp/unknown.webp" alt="Swirling void"
+                /></output>
+
+                <h3>Travel & Encounters</h3>
+                <output id="travel-output" name="travelConditions">—</output>
+                <output id="combat-output" name="combatEncounter">—</output>
+                <output id="non-combat-output" name="nonCombatEncounter"
+                  >—</output
+                >
+              </fieldset>
+            </section>
+          </div>
+          <br />
+          <small>
+            <strong>DISCLAIMER:</strong> This tool is intended for use with the
+            Dungeons & Dragons 5th Edition role-playing game. All content is
+            generated randomly and is not intended to be used as a substitute
+            for official material.
+          </small>
+        </div>
+      </main>
+      <footer>
+        <a href="https://github.com/DaJoker29/sfdm-tools">source code</a> &bull;
+        <a href="/privacy">privacy policy</a>
+      </footer>
+    </div>
+
+    <div class="page-loader">
+      <div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="xMidYMid"
+          style="shape-rendering: auto; display: block; background: transparent"
+          width="2em"
+          height="2em"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <g>
+            <g transform="translate(50 50)">
+              <g>
+                <animateTransform
+                  repeatCount="indefinite"
+                  dur="0.2s"
+                  keyTimes="0;1"
+                  values="0;45"
+                  type="rotate"
+                  attributeName="transform"
+                ></animateTransform>
+                <path
+                  fill="#e15b64"
+                  d="M29.491524206117255 -5.5 L37.491524206117255 -5.5 L37.491524206117255 5.5 L29.491524206117255 5.5 A30 30 0 0 1 24.742744050198738 16.964569457146712 L24.742744050198738 16.964569457146712 L30.399598299691117 22.621423706639092 L22.621423706639096 30.399598299691114 L16.964569457146716 24.742744050198734 A30 30 0 0 1 5.5 29.491524206117255 L5.5 29.491524206117255 L5.5 37.491524206117255 L-5.499999999999997 37.491524206117255 L-5.499999999999997 29.491524206117255 A30 30 0 0 1 -16.964569457146705 24.742744050198738 L-16.964569457146705 24.742744050198738 L-22.621423706639085 30.399598299691117 L-30.399598299691117 22.621423706639092 L-24.742744050198738 16.964569457146712 A30 30 0 0 1 -29.491524206117255 5.500000000000009 L-29.491524206117255 5.500000000000009 L-37.491524206117255 5.50000000000001 L-37.491524206117255 -5.500000000000001 L-29.491524206117255 -5.500000000000002 A30 30 0 0 1 -24.742744050198738 -16.964569457146705 L-24.742744050198738 -16.964569457146705 L-30.399598299691117 -22.621423706639085 L-22.621423706639092 -30.399598299691117 L-16.964569457146712 -24.742744050198738 A30 30 0 0 1 -5.500000000000011 -29.491524206117255 L-5.500000000000011 -29.491524206117255 L-5.500000000000012 -37.491524206117255 L5.499999999999998 -37.491524206117255 L5.5 -29.491524206117255 A30 30 0 0 1 16.964569457146702 -24.74274405019874 L16.964569457146702 -24.74274405019874 L22.62142370663908 -30.39959829969112 L30.399598299691117 -22.6214237066391 L24.742744050198738 -16.964569457146716 A30 30 0 0 1 29.491524206117255 -5.500000000000013 M0 -20A20 20 0 1 0 0 20 A20 20 0 1 0 0 -20"
+                ></path>
+              </g>
+            </g>
+            <g></g>
+          </g>
+          <!-- [ldio] generated by https://loading.io -->
+        </svg>
+        <h2>Loading</h2>
+      </div>
+    </div>
+  </body>
+
+  <script src="<%= sources.js %>" type="module"></script>
+</html>

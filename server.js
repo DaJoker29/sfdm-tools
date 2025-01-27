@@ -7,7 +7,7 @@ import helmet from "helmet";
 import MongoStore from "connect-mongo";
 
 import passport from "./services/passport.js";
-import { validateSeasonsData } from "./public/data/seasons.js";
+import { validateSeasonsData } from "./data/seasons.js";
 import authRoutes from "./routes/authRoutes.js";
 import apiRoutes from "./routes/apiRoutes.js";
 import { findUser } from "./controllers/auth.js";
@@ -30,11 +30,14 @@ const sessionOptions = {
 // Reduce fingerprinting
 app.disable("x-powered-by");
 
+app.use(express.static("dist"));
+app.use("/data", express.static("data"));
+
 app.use(cors());
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static("public"));
+
 app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
