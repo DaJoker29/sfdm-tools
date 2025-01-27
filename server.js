@@ -37,7 +37,7 @@ app.use(bodyParser.json());
 app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static("public"));
+app.use(express.static("client"));
 app.use("/data", express.static("data"));
 
 app.use("/auth", authRoutes);
