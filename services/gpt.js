@@ -20,7 +20,7 @@ const submitToGPT = async (request) => {
 };
 
 function parseContent(raw) {
-  const content = raw.choices[0].message.content;
+  const { content } = raw.choices[0].message;
   const trimmed = content.substring(7, content.length - 3);
   return JSON.parse(trimmed);
 }
@@ -39,7 +39,9 @@ function generatePrompt(request) {
         ? "Finally, I need you to generate a noncombat encounter as well (1 to 2 short sentences). It can be a social interaction, puzzle, skill challenge, environmental hazard, mystery, random event, or anything else that doesn't involve combat."
         : ""
     }`,
-    `Deliver your response in JSON format with the following key values: travelConditions (string), combatEncounter (string), nonCombatEncounter (string).`,
+    `Deliver your response in JSON format with the following key values: travelConditions (string)${
+      request.combatFlag === "on" ? ", combatEncounter (string)" : ""
+    }${request.nonCombatFlag === "on" ? ", nonCombatEncounter (string)" : ""}.`,
   ];
   return text.join(" ");
 }

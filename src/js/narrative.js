@@ -10,7 +10,9 @@ const saveNarrative = (owner, results) => {
     },
   };
 
-  fetch("/api/narrative/save", options).catch((err) => console.error(err));
+  fetch("/api/narrative/save", options).catch((err) =>
+    console.error(err)
+  );
 };
 
 const listNarratives = async (owner) => {

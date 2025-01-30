@@ -15,18 +15,14 @@ async function onSubmit(event) {
   document.body.classList.add("narrative-loading");
 
   const formData = new FormData(travelForm);
-  const season = formData.get("season");
-  const region = formData.get("region");
-  const combatFlag = formData.get("combatFlag");
-  const nonCombatFlag = formData.get("nonCombatFlag");
 
   const options = {
     method: "POST",
     body: JSON.stringify({
-      season,
-      region,
-      combatFlag,
-      nonCombatFlag,
+      season: formData.get("season"),
+      region: formData.get("region"),
+      combatFlag: formData.get("combatFlag") || "off",
+      nonCombatFlag: formData.get("nonCombatFlag") || "off",
     }),
     headers: {
       "Content-Type": "application/json",
@@ -52,7 +48,8 @@ async function saveResults(response) {
 
   if (owner) {
     try {
-      saveNarrative(owner, response);
+      await saveNarrative(owner, response);
+      await listNarratives(owner);
     } catch (err) {
       console.error(err);
     }
