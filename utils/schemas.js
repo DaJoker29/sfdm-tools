@@ -1,3 +1,4 @@
+import e from "cors";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -14,8 +15,7 @@ const checkboxEnum = ["on", "off"];
 
 const narrativeSchema = new mongoose.Schema({
   owner: { type: String, ref: "User" },
-  createdAt: { type: Date, default: Date.now },
-  expireAfterSeconds: { type: Number, default: 60 * 60 * 24 },
+  createdAt: { type: Date, default: Date.now, expires: 60 * 60 * 24 },
   season: { type: String, required: true },
   region: { type: String, required: true },
   biome: { type: String, required: true },
