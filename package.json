@@ -4,8 +4,7 @@
   "description": "A set of DM tools for 5th edition Dungeons and Dragons",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build:prod && npm run server",
-    "dev": "npm run build:dev && npm run server",
+    "start": "npm run build:dev && npm run server",
     "build:dev": "node ./scripts/build-dev.mjs",
     "build:prod": "node ./scripts/build-prod.mjs",
     "server": "dotenvx run -- node server.js",
