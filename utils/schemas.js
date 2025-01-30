@@ -1,4 +1,3 @@
-import e from "cors";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -25,8 +24,8 @@ const narrativeSchema = new mongoose.Schema({
   weatherTemp: { type: String, required: true },
   weatherOverview: { type: String, required: true },
   travelConditions: { type: String, required: true },
-  combatEncounter: { type: String, required: true },
-  nonCombatEncounter: { type: String, required: true },
+  combatEncounter: { type: String },
+  nonCombatEncounter: { type: String },
 });
 
 export { userSchema, narrativeSchema };

@@ -22,10 +22,14 @@ const fetchNarratives = async function (req, res, next) {
 };
 
 const saveNarrative = async function (req, res, next) {
-  console.log(`Saving Narrative. User: ${req.user._id}`);
-  const narrative = await Narrative.create(req.body);
-  res.json(narrative);
-  console.log(`Narrative saved: ${narrative._id}`);
+  try {
+    console.log(`Saving Narrative. User: ${req.user._id}`);
+    const narrative = await Narrative.create(req.body);
+    res.json(narrative);
+    console.log(`Narrative saved: ${narrative._id}`);
+  } catch (err) {
+    next(err);
+  }
 };
 
 const newNarrative = async function (req, res, next) {
